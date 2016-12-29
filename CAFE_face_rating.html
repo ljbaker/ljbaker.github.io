@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="jspsych-5.0.3/js/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-button-response.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/face_ref1.js"></script>
+    <!-- toggle face_ref# for each batch -->
+    <link rel= "stylesheet" href="jspsych-5.0.3/css/jspsych.css"></link>
+  </head>
+  <body>
+  </body>
+  <script>
+
+    /* define welcome message block */
+    var welcome_block = {
+      type: 'text',
+      text: "Hi, thanks for participating in our survey. We'll first need some basic information from you. Press any key to move to the next page."
+    };
+
+    /* define instructions block */
+    var instructions_block = {
+      type: "text",
+      text: "<p> You are about to see several dozen images of children making " +
+          "emotional facial expressions. For each image, select the emotion that " +
+          "best characterizes the face. You will select emotions by clicking the " +
+          "label corresponding to each emotion ('A' for angry, 'H' for happy, etc.). " +
+          "There is no time limit, so please go through the images at a quick but comfortable pace. "+
+          "When you are finished, you can see how accurately you judged the expressions. " +
+          "The entire experiment should take about 15 minutes. " +
+          "<p>Press any key to begin.</p>",
+      timing_post_trial: 200
+    };
+
+    var survey_trial1 = {
+      type: 'survey-text',
+      questions: ["Please enter your Mechanical Turk ID. If you are not participating over Mechanical Turk, please enter your date of birth (DDMMYYY)", "Please enter your age."],
+      rows: [1,1],
+      columns: [20,10]
+    };
+    /* define experimental stimuli */
+    var image_dir = "all_faces/";
+    var emotions = ['angry','disgust','fearful','happy','neutral','sad','surprise']; //references recognized by string commands
+    // var emo_dict = {'angry' : 0, 'disgust' : 1, 'fearful' : 2, 'happy' : 3, 'neutral' : 4, 'sad' : 5, 'surprise' : 6}
+    var emo_dict = {0 : 'angry', 1 : 'disgust', 2 : 'fearful', 3 : 'happy', 4 : 'neutral', 5 : 'sad', 6 : 'surprise'}
+    var face_trials = [];
+    // for (i = 0; i < face_stimuli.length; i++) {
+    for (i = 0; i < 5; i++) { //testing only
+      face_trials.push(
+        {stimulus: image_dir+face_stimuli[i], data: {response: basic_emotion[i]}}
+        )
+    }
+
+  var test_block = {
+    type: 'button-response',
+    randomize_order: false, //at least while debugging
+    timing_post_trial: 200,
+    prompt: '<p>Which emotion best defines this face?</p>',
+    choices: emotions,
+    on_finish: function(data){
+      // var match = false;
+      if(data.response == emo_dict[data.button_pressed]){
+        match = 1;
+      } else{
+        match = 0;
+      }
+      jsPsych.data.addDataToLastTrial({match: match});
+    },
+    timeline: face_trials
+  }
+
+  function getSubjectData() {
+
+    var trials = jsPsych.data.getTrialsOfType('button-response');
+
+    var sum_rt = 0;
+    var match_trial_count = 0;
+    var match_rt_count = 0;
+    for (var i = 0; i < trials.length; i++) {
+      if (trials[i].match == 1) {
+        match_trial_count++;
+      }
+    }
+    return {
+      accuracy: (match_trial_count / trials.length)*100
+    }
+  }
+
+  var feedback_block = {
+    type: "text",
+    text: function() {
+      var subject_data = getSubjectData();
+      return "<p>You correctly judged the emotional expressions of "+subject_data.accuracy+"% of "+
+      "the faces.</p><p> Press any key to answer a few follow-up questions and complete the "+
+      "experiment. Thank you!</p>";
+    }
+  };
+
+
+  var survey_trial2 = {
+    type: 'survey-multi-choice',
+    questions: ["What is your gender?", "Which of these best describes your race?",
+    "What is your highest level of education?", "Do you have any children?",
+    "If so, what is the age of your oldest child?"],
+    options: [
+      ["Female","Male","Prefer not to answer"],
+      ['Black, Afro-Caribean or African-American','East Asian','Latino/Hispanic','Middle-Eastern','Native American','Non-Hispanic White or Euro-American','Pacific Islander','South Asian','Mixed','Other'],
+      ["some high school","high school","some college", "college degree (AS, BA, BS, etc)","graduate or professional degree (MA, NP, JD, PhD, etc.)"],
+      ["No","Yes, 1 child","Yes, 2 children","Yes, 3 children","Yes, more than 3 children"],
+      ["N/A","0-6 months","6-12 months","1-2 years","2-3 years","4-5 years","6-8 years","9-12 years","13-17 years","older than 18 years"]
+  ],
+    required: [true ,true, true, true, true],
+    horizontal: true
+  };
+
+  var debrief_block = {
+    type: "text",
+    text: function() {
+      var subject_data = getSubjectData();
+      return "<p>Great, thank you for participating!"+
+      "</p><p> Press any key to finish the experiment."+
+      " Make sure you submit the following code in Mechanical Turk to receive credit: "+
+      "</p><p> <b>EMO4541</b> </p>";
+    }
+  };
+
+    /* create experiment timeline array */
+    var timeline = [];
+    timeline.push(welcome_block);
+    timeline.push(survey_trial1);
+    timeline.push(instructions_block);
+    timeline.push(test_block);
+    timeline.push(feedback_block);
+    timeline.push(survey_trial2);
+    timeline.push(debrief_block);
+
+    /* start the experiment */
+    jsPsych.init({
+      timeline: timeline,
+      on_finish: function() {
+        jsPsych.data.displayData();
+      }
+    });
+  </script>
+</html>
