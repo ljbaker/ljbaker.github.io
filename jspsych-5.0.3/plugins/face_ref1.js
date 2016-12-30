@@ -1,3 +1,5 @@
+// Arrays for loading face stimuli into main html experiment
+// This is the array for Run 1. Runs ae labeled in the js name
 var face_stimuli = [
   'surprise51.jpg',
 'happy_F-AA-03.jpg',
