@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
   <head>
-    <title>My experiment</title>
+    <title> Child Affective Facial Expressions Validation -- Rutgers University </title>
+    <!-- JSPsych packages -->
     <script src="jspsych-5.0.3/js/jquery.min.js"></script>
     <script src="jspsych-5.0.3/jspsych.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
@@ -9,19 +10,23 @@
     <script src="jspsych-5.0.3/plugins/jspsych-button-response.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-survey-multi-choice.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
-    <script src="jspsych-5.0.3/plugins/face_ref1.js"></script>
-    <script src="jspsych-5.0.3/plugins/emoji_ref.js"></script>
-    <!-- toggle face_ref# for each batch -->
     <link rel= "stylesheet" href="jspsych-5.0.3/css/jspsych.css"></link>
+    <!-- EXPERIMENT DEFINED ARRAYS -->
+    <script src="jspsych-5.0.3/experiment_plugins/emoji_ref.js"></script>
+    <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
+    <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
   </head>
   <body>
   </body>
   <script>
 
+    // add run number to data file
+    jsPsych.data.addProperties({runNum: runNum});
     /* define welcome message block */
     var welcome_block = {
       type: 'text',
-      text: "Hi, thanks for participating in our survey. We'll first need some basic information from you. Press any key to move to the next page."
+      text: "Hi, thanks for participating in our survey. We'll first need some basic information from you." +
+      " Press any key to move to the next page."
     };
 
     /* define instructions block */
@@ -42,7 +47,10 @@
       type: 'survey-text',
       questions: ["Please enter your Mechanical Turk ID. If you are not participating over Mechanical Turk, please enter your date of birth (DDMMYYY)", "Please enter your age."],
       rows: [1,1],
-      columns: [20,10]
+      columns: [20,10],
+      on_finish: function(data){
+        jsPsych.data.addProperties({MTID: data.responses.split('\"')[3]}) //outputs each trial as a bizzarre string - this is a dumb fix
+        }
     };
     /* define experimental stimuli */
     var image_dir = "all_faces/";
@@ -60,11 +68,12 @@
       return array;
     };
     rand_emotions = shuffleArray(emotions);
+
     var face_trials = [];
-    for (i = 0; i < face_stimuli.length; i++) { //toggle for full experiment
-    // for (i = 0; i < 5; i++) { //toggle for testing
+    // for (i = 0; i < run_faces.length; i++) { //toggle for full experiment
+    for (i = 0; i < 5; i++) { //toggle for testing
       face_trials.push(
-        {stimulus: image_dir+face_stimuli[i], data: {cor_response: basic_emotion[i]}}
+        {stimulus: image_dir+run_faces[i], data: {cor_response: run_emotions[i]}}
         )
     }
     for (i = 0; i < emoji_stimuli.length; i++) {//add emotjis to stimulus set
@@ -135,6 +144,17 @@
   ],
     required: [true ,true, true, true, true, true],
     horizontal: false
+  };
+
+  var survey_trial3 = {
+    type: 'survey-text',
+    questions: ['Please list the ages of your children, in years. If your children are younger than 2 years, please list their age in months. ' +
+  'For example, my sister has three children who are all five years apart, so she would write "11 years, 6 years, 7 months"). If you have no children, please enter "None".'],
+    rows: [1,1],
+    columns: [20,10],
+    on_finish: function(data){
+      jsPsych.data.addProperties({MTID: data.responses.split('\"')[3]}) //outputs each trial as a bizzarre string - this is a dumb fix
+      }
   };
 
   var debrief_block = {
