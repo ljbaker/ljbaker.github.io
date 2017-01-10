@@ -10,11 +10,14 @@
     <script src="jspsych-5.0.3/plugins/jspsych-button-response.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-survey-multi-choice.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/utility.js"></script>
     <link rel= "stylesheet" href="jspsych-5.0.3/css/jspsych.css"></link>
     <!-- EXPERIMENT DEFINED ARRAYS -->
     <script src="jspsych-5.0.3/experiment_plugins/emoji_ref.js"></script>
     <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
     <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
+
   </head>
   <body>
   </body>
@@ -23,6 +26,39 @@
     // add run number to data file
     jsPsych.data.addProperties({runNum: runNum});
     /* define welcome message block */
+
+    // sample function that might be used to check if a subject has given
+    // consent to participate.
+    var check_consent = function(elem) {
+      if ($('#consent_checkbox').is(':checked')) {
+        return true;
+      }
+      else {
+        alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.' Otherwise please close this window.");
+        return false;
+      }
+      if ($('#decline_checkbox').is(':checked')) {
+        alert("If you wish to participate, you must check ONLY the box next to the statement 'I agree to participate in this study.' Otherwise please close this window.");
+        return false;
+      }
+      return false;
+    };
+
+
+    // declare the consent form block
+    var consent_page = {
+      type:'html',
+      url: "informed_consent.html",
+      cont_btn: "start",
+      check_fn: check_consent
+    };
+
+    var welcome_block = {
+      type: 'text',
+      text: "Hi, thanks for participating in our survey. We'll first need some basic information from you." +
+      " Press any key to move to the next page."
+    };
+
     var welcome_block = {
       type: 'text',
       text: "Hi, thanks for participating in our survey. We'll first need some basic information from you." +
@@ -170,6 +206,7 @@
 
     /* create experiment timeline array */
     var timeline = [];
+    timeline.push(consent_page);
     timeline.push(welcome_block);
     timeline.push(survey_trial1);
     timeline.push(instructions_block);
