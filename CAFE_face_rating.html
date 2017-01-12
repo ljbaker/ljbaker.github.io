@@ -17,6 +17,7 @@
     <script src="jspsych-5.0.3/experiment_plugins/emoji_ref.js"></script>
     <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
     <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
+    <script src="mmturkey.js"></script>
 
   </head>
   <body>
@@ -263,7 +264,8 @@
       on_finish: function() {
         jsPsych.data.displayData();
         data = jsPsych.data.getData()
-        jsPsych.turk.submitToTurk(JSON.stringify(data));
+        // jsPsych.turk.submitToTurk(JSON.stringify(data));
+        turk.turkSubmitTo(data)
       }
     });
 
