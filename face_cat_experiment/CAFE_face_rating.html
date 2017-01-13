@@ -37,11 +37,11 @@
       // only when in Turk and when the HIT is not accepted yet.
       if(turkInfo.previewMode && !turkInfo.outsideTurk) {
         // $('#turkInfo').html('<a href="link_to_experiment.html" target="_blank">Click Here to Start Experiment</a>');
-        return true;
+        return false;
+        alert("Please accept the HIT to proceed with the survey");
       }
       else{
-        alert("Please accept the HIT to proceed with the survey");
-        return false;
+        return true;
       }
     }
 

@@ -4,18 +4,18 @@ from boto.mturk.qualification import LocaleRequirement, PercentAssignmentsApprov
 from config import AK,SK
 
 
-# HOST = "mechanicalturk.sandbox.amazonaws.com" #toggle for sandbox demo
-HOST = "mturk.com" #toggle for the actual experiment
+HOST = "mechanicalturk.sandbox.amazonaws.com" #toggle for sandbox demo
+# HOST = "mechanicalturk.amazonaws.com" #toggle for the actual experiment
 NUM_ITERATIONS = 100
 ACTIVE_HOURS = 6 #hours HIT will be active
 EXP_DURATION = 15 #minutes turkers will have to complete experiment
-EXPERIMENT_URL = """https://ljbaker.github.io/CAFE_face_rating.html"""
+EXPERIMENT_URL = """https://ljbaker.github.io/face_cat_experiment/CAFE_face_rating.html"""
 
 mtc = MTurkConnection(aws_access_key_id=AK, aws_secret_access_key=SK, host=HOST)
 
 quals = Qualifications();
-quals.add( PercentAssignmentsApprovedRequirement('GreaterThanOrEqualTo',95) )
-quals.add( NumberHitsApprovedRequirement('GreaterThanOrEqualTo',1) )
+# quals.add( PercentAssignmentsApprovedRequirement('GreaterThanOrEqualTo',95) )
+quals.add( NumberHitsApprovedRequirement('GreaterThanOrEqualTo',0) )
 quals.add( LocaleRequirement('EqualTo', 'US') )
 
 new_hit = mtc.create_hit(
