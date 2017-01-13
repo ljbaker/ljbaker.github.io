@@ -16,43 +16,48 @@
     <!-- EXPERIMENT DEFINED ARRAYS -->
     <script src="jspsych-5.0.3/experiment_plugins/emoji_ref.js"></script>
     <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
-    <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
     <script src="mmturkey.js"></script>
 
   </head>
   <body>
   </body>
 
-  <div id="experiment_link">You must accept the HIT to begin the experiment</div>.
-
-  <!-- <script>
-  //splashpage for mturk preview
-  // jsPsych has a method turkInfo() which can determine whether or not the
-  // HIT has been accepted.
-  var turkInfo = jsPsych.turk.turkInfo();
-
-  // turkInfo.previewMode is true in two cases: when the HIT has not been
-  // accepted yet OR when the page is viewed outside of mechanical turk.
-  // The second property, outsideTurk, is true when the page is viewed
-  // outside of mechanical turk, so together, the statement will be true
-  // only when in Turk and when the HIT is not accepted yet.
-  if(turkInfo.previewMode && !turkInfo.outsideTurk) {
-    $('#turkInfo').html('<a href="link_to_experiment.html" target="_blank">Click Here to Start Experiment</a>');
-  }
-  </script> -->
 
   <script>
 
     // add run number to data file
     jsPsych.data.addProperties({runNum: runNum});
 
-    /* define welcome message block */
-    // var preview_page = {
-    //   type: 'text',
-    //   text: "Hey! Please accept this HIT to take our survey."
-    // };
+    var turkInfo = jsPsych.turk.turkInfo();
+    var check_turk = function(elem){
+      // turkInfo.previewMode is true in two cases: when the HIT has not been
+      // accepted yet OR when the page is viewed outside of mechanical turk.
+      // The second property, outsideTurk, is true when the page is viewed
+      // outside of mechanical turk, so together, the statement will be true
+      // only when in Turk and when the HIT is not accepted yet.
+      if(turkInfo.previewMode && !turkInfo.outsideTurk) {
+        // $('#turkInfo').html('<a href="link_to_experiment.html" target="_blank">Click Here to Start Experiment</a>');
+        return true;
+      }
+      else{
+        alert("Please accept the HIT to proceed with the survey");
+        return false;
+      }
+    }
 
-    // sample function that might be used to check if a subject has given
+    /* Turkers see a preview of the experiment embedded in an iframe.
+    It is totally possible for them to complete the experiment without
+    actually taking the HIT, purely by accident. This splash page is an
+    advertisement that also filters out people who haven't accepted the HIT
+    by using the check_turk function */
+    var splash_page = {
+      type:'html',
+      url: "splash_page.html",
+      cont_btn: "start",
+      check_fn: check_turk
+    };
+
+    // sample function that checks if a subject has given
     // consent to participate.
     var check_consent = function(elem) {
       if ($('#consent_checkbox').is(':checked')) {
@@ -79,30 +84,25 @@
     };
 
     var welcome_block = {
-      type: 'text',
-      text: "Hi, thanks for participating in our survey. We'll first need some basic information from you." +
-      " Press any key to move to the next page."
-    };
-
-    var welcome_block = {
-      type: 'text',
-      text: "Hi, thanks for participating in our survey. We'll first need some basic information from you." +
-      " Press any key to move to the next page."
+      type: 'button-response',
+      prompt: "Hi, thanks for participating in our survey. We'll first need some basic information from you." +
+      " Press the button to move to the next page.",
+      choices: ['Continue'],
     };
 
     /* define instructions block */
     var instructions_block = {
-      type: "text",
-      text: "<p> You are about to see several dozen images of children making " +
+      type: "button-response",
+      prompt: "<p> You are about to see several dozen images of children making " +
           "emotional facial expressions. For each image, select the emotion that " +
           "best characterizes the face. You will select emotions by clicking the " +
           "label corresponding to each emotion. " +
           "There is no time limit, so please go through the images at a quick but comfortable pace. "+
           "When you are finished, you can see how accurately you judged the expressions. " +
-          "The entire experiment should take about 5-8 minutes. " +
-          "<p>Press any key to begin.</p>",
+          "The entire experiment should take about 5-8 minutes. ",
+      choices: ['Begin'],
       timing_post_trial: 200
-    };
+    }
 
     var survey_trial1 = {
       type: 'survey-text',
@@ -131,8 +131,8 @@
     rand_emotions = shuffleArray(emotions);
 
     var face_trials = [];
-    // for (i = 0; i < run_faces.length; i++) { //toggle for full experiment
-    for (i = 0; i < 5; i++) { //toggle for testing
+    for (i = 0; i < run_faces.length; i++) { //toggle for full experiment
+    // for (i = 0; i < 5; i++) { //toggle for testing
       face_trials.push(
         {stimulus: image_dir+run_faces[i], data: {cor_response: run_emotions[i]}}
         )
@@ -142,7 +142,7 @@
         {stimulus: emoji_dir+emoji_stimuli[i], data: {cor_response: emoji_emotion[i]}}
         )
     }
-// NOTE!! NEED TO ADD CORRECT RESPONSE KEYS TO EMOJI STIMULI
+
   var test_block = {
     type: 'button-response',
     randomize_order: true, //toggle to true for actualy expriment
@@ -179,13 +179,14 @@
   }
 
   var feedback_block = {
-    type: "text",
-    text: function() {
+    type: "button-response",
+    prompt: function() {
       var subject_data = getSubjectData();
       return "<p>You correctly judged the emotional expressions of "+subject_data.accuracy+"% of "+
       "the faces.</p><p> Press any key to answer a few follow-up questions and complete the "+
       "experiment.</p>";
-    }
+    },
+    choices: ['Continue']
   };
 
 
@@ -217,36 +218,9 @@
       }
   };
 
-
-  // var submit_block = {
-  //   type: 'button-response',
-  //   randomize_order: true, //toggle to true for actualy expriment
-  //   timing_post_trial: 200,
-  //   prompt: '<p>Thank you! Please press the button below to submit your responses to Mechanical Turk</p>',
-  //   choices: ['SUBMIT HIT'],
-  //   on_finish: function (data){
-  //     // sendData() {
-  //       jsPsych.turk.submitToTurk({
-  //         data: data
-  //       });
-  //     }
-  //   }
-  // };
-
-
-  var debrief_block = {
-    type: "text",
-    text: function() {
-      var subject_data = getSubjectData();
-      return "<p>Great, thank you for participating!"+
-      "</p><p> Press any key to finish the experiment."+
-      " Make sure you submit the following code in Mechanical Turk to receive credit: "+
-      "</p><p> <b>EMO4541</b> </p>";
-    }
-  };
-
     /* create experiment timeline array */
     var timeline = [];
+    timeline.push(splash_page);
     timeline.push(consent_page);
     timeline.push(welcome_block);
     timeline.push(survey_trial1);
@@ -255,20 +229,21 @@
     timeline.push(feedback_block);
     timeline.push(survey_trial2);
     timeline.push(survey_trial3);
-    // timeline.push(submit_block);
-    // timeline.push(debrief_block);
 
     /* start the experiment */
     jsPsych.init({
       timeline: timeline,
       on_finish: function() {
-        jsPsych.data.displayData();
         data = jsPsych.data.getData()
         // jsPsych.turk.submitToTurk(JSON.stringify(data));
-        turk.turkSubmitTo(data)
+        turk.submit(data);
+        // jsPsych.data.displayData();
       }
     });
-
   </script>
-<!-- document.write('<input type="hidden" name="alldata" value=data>') -->
+  <!-- <div>
+      <p>This experiment is over and your responses have been submitted"+
+       to Mechanical Turk.</p>
+      <p>This window should close automatically.</p>
+  </div> -->
 </html>
