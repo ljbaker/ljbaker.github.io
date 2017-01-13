@@ -1,4 +1,4 @@
-# Face-Rating Experiment
+# Face Categorization Experiment
 
 This page features all the code and stimuli necessary to run a facial categorization experiment through Amazon's Mechanical Turk. This experiment used a combination of Python and JavaScript, and has been annotated for use in future experiments. There is no citation for this study yet, but please contact me if you would like to adapt the code for personal or academic use.
 
