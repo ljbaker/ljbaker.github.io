@@ -4,7 +4,8 @@ from boto.mturk.qualification import LocaleRequirement, PercentAssignmentsApprov
 from config import AK,SK
 
 
-HOST = "mechanicalturk.sandbox.amazonaws.com"
+# HOST = "mechanicalturk.sandbox.amazonaws.com" #toggle for sandbox demo
+HOST = "mturk.com" #toggle for the actual experiment
 NUM_ITERATIONS = 100
 ACTIVE_HOURS = 6 #hours HIT will be active
 EXP_DURATION = 15 #minutes turkers will have to complete experiment
