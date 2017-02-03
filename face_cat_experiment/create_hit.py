@@ -6,7 +6,7 @@ from config import AK,SK
 
 # HOST = "mechanicalturk.sandbox.amazonaws.com" #toggle for sandbox demo
 HOST = "mechanicalturk.amazonaws.com" #toggle for the actual experiment
-NUM_ITERATIONS = 10
+NUM_ITERATIONS = 85
 ACTIVE_HOURS = 6 #hours HIT will be active
 EXP_DURATION = 20 #minutes turkers will have to complete experiment
 EXPERIMENT_URL = """https://ljbaker.github.io/face_cat_experiment/CAFE_face_rating.html"""
