@@ -2,7 +2,7 @@
 
 I'm a cognitive science researcher working for the Cognitive Data Science (CODAS) Lab at Rutgers University - Newark. Our research broadly covers computational analysis of human behavior, including probabilistic models of the visual system, artificially intelligent teaching agents for educational applications, modeling of learning curves in early childhood, and application of computer vision towards understanding group dynamics.
 
-My work looks at three aspects of human behavior:
+I examine human behavior in four primary ways:
 
 ### Attention, Memory and Awareness
 
