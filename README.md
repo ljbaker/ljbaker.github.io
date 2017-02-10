@@ -24,5 +24,5 @@ Research in event perception has extremely useful scientific and real-world appl
 
 ### Data Science and Statistical Analysis
 
-I really enjoy digging through data. I have a doctoral certificate in quantitative methods and postdoctoral training in machine learning, which I use to find new ideas using massive collections of data. I will occassionally post <a href="https://github.com/ljbaker/ljbaker.github.io/tree/master/CogSci17">data analysis from completed projects</a> and welcome feeback on more efficient or interesting methods.
+I really enjoy digging through data. I have a doctoral certificate in quantitative methods and postdoctoral training in machine learning, which I use to find nuanced trends in human behavior using massive collections of data. I will occassionally post <a href="https://github.com/ljbaker/ljbaker.github.io/tree/master/CogSci17">data analysis from completed projects</a> and welcome feeback on more efficient or interesting methods.
 
