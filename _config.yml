@@ -1,0 +1,9 @@
+name: Lewis Baker
+email: lewisjbaker@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+    Using data science to understand human behavior, digital media and public policy.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "https://ljbaker.github.io" # the base hostname & protocol for your site
+github_username:  ljbaker
+
+markdown: kramdown
