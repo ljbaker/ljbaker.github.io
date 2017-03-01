@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Launching a Website / Happy Mardi Gras Y'all"
+title: "Launching a Website + Happy Mardi Gras Y'all"
 date: 2017-02-28
 ---
 
