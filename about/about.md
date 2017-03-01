@@ -1,6 +1,6 @@
 ---
 layout: about
-title: "About This"
+title: "About Test"
 date: 2017-02-28
 ---
 
