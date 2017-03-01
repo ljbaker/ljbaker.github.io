@@ -4,7 +4,7 @@ I'm a cognitive science researcher working for the Cognitive Data Science (CODAS
 
 I examine human behavior in four primary ways:
 
-### Attention, Memory and Awareness
+<h2>Attention, Memory and Awareness</h2>
 
 Years of research in biology, psychology and neuroscience have demonstrated the limited scope of vision. The majority of visual processing occurs in the fovea, a concentrated patch of light receptors near the center of the retina that covers roughly the size of a thumbnail at arm's distance. If the visual system is so limted, why does the world around us seem complete? The visual system achieves these feats using *visual attention* to track informative properties and *short term memory* to briefly store items of potential impact to the near future. Many of my experiments investigate situational awareness, often demonstrating flagrant inabilities to notice moving vehicles, parts of conversation, or even items held in one's own hands.
 
