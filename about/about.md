@@ -5,5 +5,3 @@ date: 2017-02-28
 ---
 
 This is just a test for now.
-
-Please ignore this.
