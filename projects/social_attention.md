@@ -1,8 +1,0 @@
----
-layout: default
-title: "Social Attention"
----
-
-How do we know what other people are thinking?  Mind-reading is a frequent topic of science fiction, but the truth is that human beings participating in something closer to "mind-guessing" every day. Say that you hear someone scream. You turn around and you see your roommate on a stool looking down. You don't have to think at all before you know that something on the floor has surprised him, and it's not long before you see what he sees: a mouse scurrying past.
-
-Human history is filled with people failing to understand other people. However, we can seamlessly direct others to the focus of our attention using eye movements, body position, gesture and language. Some of my research looks at the effect of social stimuli on attention. On a basic science approach, we're interested in the earliest stages of brain activation that lead towards a mature theory of mind (the *nearly* unique human ability to reason about other minds), which in turn might be used for assessing autism and other mental disorders characterized by a theory of mind deficit. On an applied setting, I've used insights on social attention to improve readability of computer generated narratives and facilitate attention in multiple object tracking situations. I'm also currently working with the Rutgers Child Study Center to develop machine-learning algorithms for the recognition of social-emotional information from faces. Recently, we <a href="https://github.com/ljbaker/ljbaker.github.io/tree/master/face_cat_experiment">crowdsourced emotional categorization to workers on Amazon Mechanical Turk</a> to get an idea of how our algorithm compared to human performance while also getting additional training images for future studies.
