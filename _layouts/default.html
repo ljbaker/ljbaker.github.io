@@ -4,14 +4,15 @@
 			<title>{{ page.title }}</title>
 			<!-- link to main stylesheet -->
 			<link rel="stylesheet" type="text/css" href="/css/main.css">
+			<link rel="stylesheet" type="text/css" href="/css/metro-ui-jekyll.css">
 		</head>
 		<body>
-			<nav>
+			<nav class = "horizontal-menu">
 	    		<ul>
 	        		<li><a href="/">Home</a></li>
 		        	<li><a href="/about">About</a></li>
 							<li><a href="/projects">Projects</a>
-								<ul>
+								<ul class = "dropdown-menu" data-role="dropdown">
 									<li><a href="/projects/attention">Attention &amp; Memory</a></li>
       						<li><a href="/projects/data_science">Data Science</a></li>
 									<li><a href="/projects/event_perception">Event Perception</a></li>
