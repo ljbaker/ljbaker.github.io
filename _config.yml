@@ -6,3 +6,6 @@ github_username:  ljbaker
 markdown: kramdown
 
 permalink: /blog/:year/:month/:day/:title
+defaults:
+  -
+      layout:     "default"
