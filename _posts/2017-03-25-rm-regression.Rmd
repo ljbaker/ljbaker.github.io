@@ -1,12 +1,10 @@
 ---
 layout: posts
 title: "Repeated Measures Regression"
-author: "Lewis Baker"
-date: "3/25/2017"
-output: html_document
+date: 2017-03-28
 ---
 
-Most tutorials on statistics and data science begin with a regression example. This totally makes sense: regression is simple enough to describe in non-mathematical language and involves interactions across two dimensions, so it's easy to visualize. And while I find that most researchers in psychology and computer science are intimately familiar with general linear regression, the question I get most often is "how do I account for repeated measurements from the same participant." I'll tackle the basics of repeated-measures ANOVA in this tutorial and give a few tips and tricks for easy analysis in R using R Markdown. I'm going to assume the reader has some familiarity with linear regression, but we'll go over some basics just to refresh. 
+Most tutorials on statistics and data science begin with a regression example. This totally makes sense: regression is simple enough to describe in non-mathematical language and involves interactions across two dimensions, so it's easy to visualize. And while I find that most researchers in psychology and computer science are intimately familiar with general linear regression, the question I get most often is "how do I account for repeated measurements from the same participant." I'll tackle the basics of repeated-measures ANOVA in this tutorial and give a few tips and tricks for easy analysis in R using R Markdown. I'm going to assume the reader has some familiarity with linear regression, but we'll go over some basics just to refresh.
 
 ## Regression
 
@@ -28,9 +26,9 @@ cor.test(age,height)
 ```
 Furthermore, we can use linear regression to find the line that passes as close to all the points in our dataset. This line serves two purposes: first, like the correlation test, we can judge the likelihood that one item affects another item. However in this case we can assume direct causal relationships between items. Second, we can use this model to predict future data.
 
-For the sake of consistency, I'm using regression and not Analysis of Variance (ANOVA). ANOVA is a special case of regression for categorical data (e.g., conditions or groups). It behaves identically to regression when using continuous data. *NOTE*: Many ANOVA functions in R or other statistical software output the results of ANOVAs as $F_{df1,df2}$ scores, whereas many regression functions give output as $t_{df}$. In those cases where $df1 = 1$, $F_{df1=1,df2} = t_{df2}^2$. 
+For the sake of consistency, I'm using regression and not Analysis of Variance (ANOVA). ANOVA is a special case of regression for categorical data (e.g., conditions or groups). It behaves identically to regression when using continuous data. *NOTE*: Many ANOVA functions in R or other statistical software output the results of ANOVAs as $F_{df1,df2}$ scores, whereas many regression functions give output as $t_{df}$. In those cases where $df1 = 1$, $F_{df1=1,df2} = t_{df2}^2$.
 
-You can *totally* do repeated measures ANOVAS using the aov package, but things get a little complicated when trying to account for covariates. I'll show you how to do both repeated-measures regression and repeated-measures ANOVA, but we'll concentrate on regression for more complicated models. 
+You can *totally* do repeated measures ANOVAS using the aov package, but things get a little complicated when trying to account for covariates. I'll show you how to do both repeated-measures regression and repeated-measures ANOVA, but we'll concentrate on regression for more complicated models.
 
 As always, we begin by visualizing the data.
 
@@ -45,7 +43,7 @@ We then run a simple linear regression model predicting height from age.
 fit1 <- lm(height ~ age)
 summary(fit1)
 ```
-We see that age has a significant effect on height at $p = .013$. We have an $R^2$ of .238, meaning this model accounts for about 24% of the variance seen in the data. 
+We see that age has a significant effect on height at $p = .013$. We have an $R^2$ of .238, meaning this model accounts for about 24% of the variance seen in the data.
 
 To run an ANOVA we simple run
 
@@ -57,7 +55,7 @@ Where we see the exact same results (remembering that $F_{1,23} = (t_{23})^2$) W
 
 $\frac{SS_{age}}{SS_{age}+SS_{error}} = \frac{124.8}{124.8+399.2} = .238$
 
-We can interpret this as saying that 23.8% of our effect was determined by age, and the remaining was accounted for by unknown variance. 
+We can interpret this as saying that 23.8% of our effect was determined by age, and the remaining was accounted for by unknown variance.
 
 This is all pretty noisy. All things considered, there are a lot of differences between age groups that are still unaccounted for. Age probably does explain a lot here, but what about individual differences between children?
 
@@ -69,7 +67,7 @@ But what if our data isn't independent? What if our scores were actually taken f
 
 Repeated-measures analysis is an absolute asset for studying human behavior, as it radically reduces the number of measurements we need to take to understand the impact of a stimulus. It's not a perfect fix -- as we'll address below -- but it's loads better than assuming independence when we know some unknown factors may be influencing our result.
 
-Let's begin by adding a third measure of child identity. *NOTE*: Even though we're giving subjects numerical values, it is important that we tell R they are factors (categorical variables where numerical values are nominal only). R assums strings are categorical factors by default. We'll then bind these factors into a single dataframe for easy analysis. 
+Let's begin by adding a third measure of child identity. *NOTE*: Even though we're giving subjects numerical values, it is important that we tell R they are factors (categorical variables where numerical values are nominal only). R assums strings are categorical factors by default. We'll then bind these factors into a single dataframe for easy analysis.
 
 ```{r}
 subject <- factor(
@@ -83,12 +81,12 @@ hdata <- data.frame(subject,age,height)
 head(hdata)
 ```
 
-We can now use our knowledge of subject identity to account for variance within measures. Here, we'll use a *random-effects regression* also known as a *heirarchical linear model* or *multilevel model* to account for the effects of age nested within each individual subject. 
+We can now use our knowledge of subject identity to account for variance within measures. Here, we'll use a *random-effects regression* also known as a *heirarchical linear model* or *multilevel model* to account for the effects of age nested within each individual subject.
 
 ```{r}
 library(nlme)
-fit2 <- lme(height ~ age, 
-            random = ~1 | subject/age, 
+fit2 <- lme(height ~ age,
+            random = ~1 | subject/age,
             data = hdata, method = "ML")
 summary(fit2)
 ```
@@ -156,4 +154,3 @@ posthoc <- glht(fit3, mcp(sex = "Tukey"))
 summary(posthoc)
 
 ```
-
