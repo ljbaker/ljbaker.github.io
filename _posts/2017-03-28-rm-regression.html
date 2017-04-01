@@ -1,6 +1,5 @@
-<!DOCTYPE html>
 ---
-layout: posts
+layout: post
 title: "Repeated Measures Regression"
 date: 2017-03-28
 ---
@@ -8,6 +7,9 @@ date: 2017-03-28
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+<title>{{ page.title }}</title>
+<!-- link to main stylesheet -->
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -76,6 +78,22 @@ h6 {
 </head>
 
 <body>
+
+  <nav class = "horizontal-menu">
+      <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/cv">CV</a></li>
+          <li><a href="/projects">Projects</a>
+            <ul class = "dropdown-menu" data-role="dropdown">
+              <li><a href="/projects/attention">Attention &amp; Memory</a></li>
+              <li><a href="/projects/data_science">Data Science</a></li>
+              <li><a href="/projects/event_perception">Event Perception</a></li>
+              <li><a href="/projects/social_attention">Social Attention</a></li>
+            </ul>
+          </li>
+      </ul>
+  </nav>
 
 <style type="text/css">
 .main-container {
@@ -372,6 +390,13 @@ $(document).ready(function () {
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
+
+<footer>
+    <ul>
+        <li><a href="mailto:lewisjbaker@gmail.com">email</a></li>
+        <li><a href="https://github.com/ljbaker">github.com/ljbaker</a></li>
+  </ul>
+</footer>
 
 </body>
 </html>
