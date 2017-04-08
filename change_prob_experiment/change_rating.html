@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title> Child Affective Facial Expressions Validation -- Rutgers University </title>
+    <title> Object Probability -- Rutgers University </title>
     <!-- JSPsych packages -->
     <script src="jspsych-5.0.3/js/jquery.min.js"></script>
     <script src="jspsych-5.0.3/jspsych.js"></script>
@@ -11,11 +11,10 @@
     <script src="jspsych-5.0.3/plugins/jspsych-survey-multi-choice.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/utility.js"></script>
+
     <link rel= "stylesheet" href="jspsych-5.0.3/css/jspsych.css"></link>
     <!-- EXPERIMENT DEFINED ARRAYS -->
-    <script src="jspsych-5.0.3/experiment_plugins/emoji_ref.js"></script>
-    <script src="jspsych-5.0.3/experiment_plugins/face_ref.js"></script>
+    <!-- <script src="WolfeCBImages/boxed_scenes/boxed_scenes_ref.js"></script> -->
     <script src="mmturkey.js"></script>
 
   </head>
@@ -25,8 +24,8 @@
 
   <script>
 
-    // add run number to data file
-    jsPsych.data.addProperties({runNum: runNum});
+    // add run number to data file -- LB ADD LATER 2017/4/7
+    // jsPsych.data.addProperties({runNum: runNum});
 
     var turkInfo = jsPsych.turk.turkInfo();
     var check_turk = function(elem){
@@ -36,7 +35,8 @@
       // outside of mechanical turk, so together, the statement will be true
       // only when in Turk and when the HIT is not accepted yet.
       if(turkInfo.previewMode && !turkInfo.outsideTurk) {
-        // $('#turkInfo').html('<a href="link_to_experiment.html" target="_blank">Click Here to Start Experiment</a>');
+      // $('#turkInfo').html('<a href="link_to_experiment.html" target="_blank">
+      // Click Here to Start Experiment</a>');
         return false;
         alert("Please accept the HIT to proceed with the survey");
       }
@@ -64,11 +64,15 @@
         return true;
       }
       else {
-        alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.' Otherwise please close this window.");
+        alert("If you wish to participate, you must check the box next to the" +
+        " statement 'I agree to participate in this study.' Otherwise please" +
+        " close this window.");
         return false;
       }
       if ($('#decline_checkbox').is(':checked')) {
-        alert("If you wish to participate, you must check ONLY the box next to the statement 'I agree to participate in this study.' Otherwise please close this window.");
+        alert("If you wish to participate, you must check ONLY the box next to"+
+        " the statement 'I agree to participate in this study.' Otherwise"+
+        " please close this window.");
         return false;
       }
       return false;
@@ -85,7 +89,8 @@
 
     var welcome_block = {
       type: 'button-response',
-      prompt: "Hi, thanks for participating in our survey. We'll first need some basic information from you." +
+      prompt: "Hi, thanks for participating in our study. We'll first need" +
+      " some basic information from you." +
       " Press the button to move to the next page.",
       choices: ['Continue'],
     };
@@ -93,13 +98,18 @@
     /* define instructions block */
     var instructions_block = {
       type: "button-response",
-      prompt: "<p> You are about to see several dozen images of children making " +
-          "emotional facial expressions. For each image, select the emotion that " +
-          "best characterizes the face. You will select emotions by clicking the " +
-          "label corresponding to each emotion. " +
-          "There is no time limit, so please go through the images at a quick but comfortable pace. "+
-          "When you are finished, you can see how accurately you judged the expressions. " +
-          "The entire experiment should take about 5-8 minutes. ",
+      prompt: "<p> You are about to see several dozen images of everyday scenes" +
+          " with a variety of objects. A subset of objects have colored boxes " +
+          "drawn around them. For each outlined object, we'd like you to guage " +
+          "the likelihood that specific object in that specific scene will change "+
+          "in 5 minutes, one hour or one day. </p>" +
+          "<br><p> By 'change', we mean will the object move, dissappear, change shape "+
+          "or color, or otherwise be different later in time. We simply want your" +
+          "opinion - there is no right or wrong answer.</p>"+
+          "<br><p> There is no time limit, so please go through the images at a quick " +
+          "but comfortable pace. "+
+          "There are about 30 scenes. The entire set should take about 10 minutes." +
+          "<p> Press any key to begin.",
       choices: ['Begin'],
       timing_post_trial: 200
     }
