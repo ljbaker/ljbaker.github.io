@@ -1,3 +1,9 @@
+---
+layout: posts
+title: "Repeated-Measures Regression"
+date: 2017-03-25
+---
+
 Most tutorials on statistics and data science begin with a regression
 example. This totally makes sense: regression is simple enough to
 describe in non-mathematical language and involves interactions across
@@ -38,16 +44,16 @@ thing we can look at is the correlation between items.
 
     cor.test(age,height)
 
-    ## 
+    ##
     ##  Pearson's product-moment correlation
-    ## 
+    ##
     ## data:  age and height
     ## t = 2.6818, df = 23, p-value = 0.01332
     ## alternative hypothesis: true correlation is not equal to 0
     ## 95 percent confidence interval:
     ##  0.1151367 0.7404076
     ## sample estimates:
-    ##       cor 
+    ##       cor
     ## 0.4880636
 
 Furthermore, we can use linear regression to find the line that passes
@@ -84,23 +90,23 @@ We then run a simple linear regression model predicting height from age.
     fit1 <- lm(height ~ age)
     summary(fit1)
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = height ~ age)
-    ## 
+    ##
     ## Residuals:
-    ##    Min     1Q Median     3Q    Max 
-    ##  -6.76  -4.02   0.24   2.82   7.24 
-    ## 
+    ##    Min     1Q Median     3Q    Max
+    ##  -6.76  -4.02   0.24   2.82   7.24
+    ##
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
     ## (Intercept)  38.6400     7.1189   5.428 1.62e-05 ***
     ## age           1.5800     0.5892   2.682   0.0133 *  
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
+    ##
     ## Residual standard error: 4.166 on 23 degrees of freedom
-    ## Multiple R-squared:  0.2382, Adjusted R-squared:  0.2051 
+    ## Multiple R-squared:  0.2382, Adjusted R-squared:  0.2051
     ## F-statistic: 7.192 on 1 and 23 DF,  p-value: 0.01332
 
 We see that age has a significant effect on height at *p* = .013. We
@@ -112,7 +118,7 @@ To run an ANOVA we simple run
     anova(fit1)
 
     ## Analysis of Variance Table
-    ## 
+    ##
     ## Response: height
     ##           Df Sum Sq Mean Sq F value  Pr(>F)  
     ## age        1 124.82 124.820  7.1919 0.01332 *
@@ -143,7 +149,7 @@ Regression assumes independence between data points (i.e., that measures
 were randomly sampled from the same distribution and to the best of our
 knowledge are not related in any other way). We would then assume that
 any variance not explained by our model is "noise" -- although let it be
-said that one man's noise is another man's avenvue for exploration.
+said that one man's noise is another man's avenue for exploration.
 
 But what if our data isn't independent? What if our scores were actually
 taken from five children over the coarse of five years? Accounting for
@@ -169,7 +175,7 @@ result.
 Let's begin by adding a third measure of child identity. *NOTE*: Even
 though we're giving subjects numerical values, it is important that we
 tell R they are factors (categorical variables where numerical values
-are nominal only). R assums strings are categorical factors by default.
+are nominal only). R assumes strings are categorical factors by default.
 We'll then bind these factors into a single dataframe for easy analysis.
 
     subject <- factor(
@@ -192,44 +198,44 @@ We'll then bind these factors into a single dataframe for easy analysis.
 
 We can now use our knowledge of subject identity to account for variance
 within measures. Here, we'll use a *random-effects regression* also
-known as a *heirarchical linear model* or *multilevel model* to account
+known as a *hierarchical linear model* or *multilevel model* to account
 for the effects of age nested within each individual subject.
 
     library(nlme)
-    fit2 <- lme(height ~ age, 
-                random = ~1 | subject/age, 
+    fit2 <- lme(height ~ age,
+                random = ~1 | subject/age,
                 data = hdata, method = "ML")
     summary(fit2)
 
     ## Linear mixed-effects model fit by maximum likelihood
-    ##  Data: hdata 
+    ##  Data: hdata
     ##        AIC      BIC    logLik
     ##   120.1845 126.2789 -55.09225
-    ## 
+    ##
     ## Random effects:
     ##  Formula: ~1 | subject
     ##         (Intercept)
     ## StdDev:     3.67535
-    ## 
+    ##
     ##  Formula: ~1 | age %in% subject
     ##         (Intercept)  Residual
     ## StdDev:     1.36603 0.7700397
-    ## 
-    ## Fixed effects: height ~ age 
+    ##
+    ## Fixed effects: height ~ age
     ##             Value Std.Error DF   t-value p-value
     ## (Intercept) 38.64  3.277380 19 11.789907       0
     ## age          1.58  0.231207 19  6.833713       0
-    ##  Correlation: 
+    ##  Correlation:
     ##     (Intr)
     ## age -0.847
-    ## 
+    ##
     ## Standardized Within-Group Residuals:
-    ##        Min         Q1        Med         Q3        Max 
-    ## -1.0826688 -0.2819975  0.1198333  0.2681222  0.6960322 
-    ## 
+    ##        Min         Q1        Med         Q3        Max
+    ## -1.0826688 -0.2819975  0.1198333  0.2681222  0.6960322
+    ##
     ## Number of Observations: 25
-    ## Number of Groups: 
-    ##          subject age %in% subject 
+    ## Number of Groups:
+    ##          subject age %in% subject
     ##                5               25
 
 The important line for most people will be the fixed-effects line, where
@@ -259,13 +265,13 @@ fixed and random factors)
     library(MuMIn)
     r.squaredGLMM(fit2)
 
-    ##       R2m       R2c 
+    ##       R2m       R2c
     ## 0.2456928 0.9719879
 
 We see that our full model accounts for a whopping 97.2% of the
 variance!
 
-Adding fixed-effects variabes
+Adding fixed-effects variables
 -----------------------------
 
 Alright, now let's further say we know one more thing about our
@@ -301,38 +307,38 @@ with fixed-effects. It will be your best friend.
     summary(fit3)
 
     ## Linear mixed-effects model fit by maximum likelihood
-    ##  Data: hdata 
+    ##  Data: hdata
     ##        AIC      BIC    logLik
     ##   90.26511 98.79724 -38.13256
-    ## 
+    ##
     ## Random effects:
     ##  Formula: ~1 | subject
     ##         (Intercept)
     ## StdDev:    2.486597
-    ## 
+    ##
     ##  Formula: ~1 | age %in% subject
     ##         (Intercept)  Residual
     ## StdDev:   0.6250456 0.4001891
-    ## 
-    ## Fixed effects: height ~ age * sex 
+    ##
+    ## Fixed effects: height ~ age * sex
     ##                 Value Std.Error DF   t-value p-value
     ## (Intercept)  44.93333  2.375915 18 18.912010  0.0000
     ## age           0.86667  0.147846 18  5.861952  0.0000
     ## sexM        -15.73333  3.756652  3 -4.188126  0.0248
     ## age:sexM      1.78333  0.233765 18  7.628738  0.0000
-    ##  Correlation: 
+    ##  Correlation:
     ##          (Intr) age    sexM  
     ## age      -0.747              
     ## sexM     -0.632  0.472       
     ## age:sexM  0.472 -0.632 -0.747
-    ## 
+    ##
     ## Standardized Within-Group Residuals:
-    ##         Min          Q1         Med          Q3         Max 
-    ## -1.06688137 -0.33575569 -0.02967504  0.29389125  1.36694620 
-    ## 
+    ##         Min          Q1         Med          Q3         Max
+    ## -1.06688137 -0.33575569 -0.02967504  0.29389125  1.36694620
+    ##
     ## Number of Observations: 25
-    ## Number of Groups: 
-    ##          subject age %in% subject 
+    ## Number of Groups:
+    ##          subject age %in% subject
     ##                5               25
 
 We again find our significant effect of age, but that some of this
@@ -351,7 +357,7 @@ need to account for familywise error rate with a single algorithm.
 FWER's deserve their own entry at some point, but basically when you
 make a comparison against chance at the .05 level, you're actually
 saying that the probability that a distribution is due to chance is
-1/20. By logical extention, if you run 20 tests on a completely random
+1/20. By logical extension, if you run 20 tests on a completely random
 set of data, one of those 20 tests will be significant through sheer
 dumb luck. Again, massive simplification, but FWER controls for the
 "dumb luck" factor of making multiple comparisons.
