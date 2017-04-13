@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8"/>
     <title> Object Probability -- Rutgers University </title>
     <!-- JSPsych packages -->
     <script src="jspsych-5.0.3/js/jquery.min.js"></script>
@@ -10,11 +11,12 @@
     <script src="jspsych-5.0.3/plugins/jspsych-button-response.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-survey-multi-choice.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
 
     <link rel= "stylesheet" href="jspsych-5.0.3/css/jspsych.css"></link>
     <!-- EXPERIMENT DEFINED ARRAYS -->
-    <!-- <script src="WolfeCBImages/boxed_scenes/boxed_scenes_ref.js"></script> -->
+    <script src="WolfeCBImages/boxed_scenes/boxed_scenes_ref.js"></script>
     <script src="mmturkey.js"></script>
 
   </head>
@@ -24,69 +26,73 @@
 
   <script>
 
+////////////// MECHANICAL TURK INTERFACE //////////////
     // add run number to data file -- LB ADD LATER 2017/4/7
     // jsPsych.data.addProperties({runNum: runNum});
 
     var turkInfo = jsPsych.turk.turkInfo();
-    var check_turk = function(elem){
-      // turkInfo.previewMode is true in two cases: when the HIT has not been
-      // accepted yet OR when the page is viewed outside of mechanical turk.
-      // The second property, outsideTurk, is true when the page is viewed
-      // outside of mechanical turk, so together, the statement will be true
-      // only when in Turk and when the HIT is not accepted yet.
-      if(turkInfo.previewMode && !turkInfo.outsideTurk) {
-      // $('#turkInfo').html('<a href="link_to_experiment.html" target="_blank">
-      // Click Here to Start Experiment</a>');
-        return false;
-        alert("Please accept the HIT to proceed with the survey");
-      }
-      else{
-        return true;
-      }
-    }
+    // var check_turk = function(elem){
+    //   // turkInfo.previewMode is true in two cases: when the HIT has not been
+    //   // accepted yet OR when the page is viewed outside of mechanical turk.
+    //   // The second property, outsideTurk, is true when the page is viewed
+    //   // outside of mechanical turk, so together, the statement will be true
+    //   // only when in Turk and when the HIT is not accepted yet.
+    //   if(turkInfo.previewMode && !turkInfo.outsideTurk) {
+    //   // $('#turkInfo').html('<a href="link_to_experiment.html" target="_blank">
+    //   // Click Here to Start Experiment</a>');
+    //     return false;
+    //     alert("Please accept the HIT to proceed with the survey");
+    //   }
+    //   else{
+    //     return true;
+    //   }
+    // }
 
     /* Turkers see a preview of the experiment embedded in an iframe.
     It is totally possible for them to complete the experiment without
     actually taking the HIT, purely by accident. This splash page is an
     advertisement that also filters out people who haven't accepted the HIT
     by using the check_turk function */
-    var splash_page = {
-      type:'html',
-      url: "splash_page.html",
-      cont_btn: "start",
-      check_fn: check_turk
-    };
+    // var splash_page = {
+    //   type:'html',
+    //   url: "splash_page_cr.html",
+    //   cont_btn: "start",
+    //   check_fn: check_turk
+    // };
 
     // sample function that checks if a subject has given
     // consent to participate.
-    var check_consent = function(elem) {
-      if ($('#consent_checkbox').is(':checked')) {
-        return true;
-      }
-      else {
-        alert("If you wish to participate, you must check the box next to the" +
-        " statement 'I agree to participate in this study.' Otherwise please" +
-        " close this window.");
-        return false;
-      }
-      if ($('#decline_checkbox').is(':checked')) {
-        alert("If you wish to participate, you must check ONLY the box next to"+
-        " the statement 'I agree to participate in this study.' Otherwise"+
-        " please close this window.");
-        return false;
-      }
-      return false;
-    };
+    // toggle off for easy testing
+    // var check_consent = function(elem) {
+    //   if ($('#consent_checkbox').is(':checked')) {
+    //     return true;
+    //   }
+    //   else {
+    //     alert("If you wish to participate, you must check the box next to the" +
+    //     " statement 'I agree to participate in this study.' Otherwise please" +
+    //     " close this window.");
+    //     return false;
+    //   }
+    //   if ($('#decline_checkbox').is(':checked')) {
+    //     alert("If you wish to participate, you must check ONLY the box next to"+
+    //     " the statement 'I agree to participate in this study.' Otherwise"+
+    //     " please close this window.");
+    //     return false;
+    //   }
+    //   return false;
+    // };
 
 
     // declare the consent form block
-    var consent_page = {
-      type:'html',
-      url: "informed_consent.html",
-      cont_btn: "start",
-      check_fn: check_consent
-    };
+    // var consent_page = {
+    //   type:'html',
+    //   url: "informed_consent.html",
+    //   cont_btn: "start",
+    //   check_fn: check_consent
+    // };
 
+
+///////////// EXPERIMENTAL BLOCK //////////////
     var welcome_block = {
       type: 'button-response',
       prompt: "Hi, thanks for participating in our study. We'll first need" +
@@ -124,80 +130,82 @@
         }
     };
     /* define experimental stimuli */
-    var image_dir = "all_faces/";
-    var emoji_dir = "emojis/";
-    var emotions = ['angry','disgust','fearful','happy','neutral','sad','surprise']; //references recognized by string commands
+    var image_dir = "WolfeCBImages/boxed_scenes/";
 
-    // define function for randomizing order of emotion options per subject
-    function shuffleArray(array) {
-      for (var i = array.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = array[i];
-          array[i] = array[j];
-          array[j] = temp;
+    // define function for randomizing order of object options per subject
+    // function shuffleArray(array) {
+    //   for (var i = array.length - 1; i > 0; i--) {
+    //       var j = Math.floor(Math.random() * (i + 1));
+    //       var temp = array[i];
+    //       array[i] = array[j];
+    //       array[j] = temp;
+    //   }
+    //   return array;
+    // };
+    // rand_object = shuffleArray(object_colors);
+
+    var scene_trials = [];
+    // all_scenes is an imported varialbe of all images to be assessed
+    // currently run_scenes is the same as all_scenes
+    // option to run subset if this proves too long
+    var run_scenes = all_scenes;
+
+    for (i = 0; i < run_scenes.length; i++) { // for each scene [JS indexes @ 0]
+      for (j = 0; j < all_objects[i].length; j++){ // for each object in that scene
+        for (k = 0; k < change_prompts.length; k++){ // for each prompt per object
+          scene_trials.push(
+            {
+              stimulus: image_dir+run_scenes[i],
+              cprompt: change_prompts[k],
+              data: {
+                obj_label: all_objects[i][j],
+                obj_col : object_colors[j],
+                cprompt : change_prompts[k]
+              }
+            }
+          )
+        }
       }
-      return array;
-    };
-    rand_emotions = shuffleArray(emotions);
-
-    var face_trials = [];
-    for (i = 0; i < run_faces.length; i++) { //toggle for full experiment
-    // for (i = 0; i < 5; i++) { //toggle for testing
-      face_trials.push(
-        {stimulus: image_dir+run_faces[i], data: {cor_response: run_emotions[i]}}
-        )
-    }
-    for (i = 0; i < emoji_stimuli.length; i++) {//add emotjis to stimulus set
-      face_trials.push(
-        {stimulus: emoji_dir+emoji_stimuli[i], data: {cor_response: emoji_emotion[i]}}
-        )
     }
 
-  var test_block = {
+  var test_block = { //stimulus is implicit?
     type: 'button-response',
-    randomize_order: true, //toggle to true for actualy expriment
     timing_post_trial: 200,
-    prompt: '<p>Which emotion best defines this face?</p>',
-    choices: rand_emotions,
+    prompt: change_prompts,
+    choices: change_choices,
     on_finish: function(data){
-      // var match = false;
-      if(data.cor_response == rand_emotions[data.button_pressed]){
-        match = 1;
-      } else{
-        match = 0;
-      }
-      jsPsych.data.addDataToLastTrial({match: match, subj_response: rand_emotions[data.button_pressed]});
+      jsPsych.data.addDataToLastTrial({subj_response: data.responses, subj_rt: data.rt});
     },
-    timeline: face_trials
+    timeline: scene_trials
   }
 
   function getSubjectData() {
 
-    var trials = jsPsych.data.getTrialsOfType('button-response');
+    var trials = jsPsych.data.getTrialsOfType('survey-likert');
 
     var sum_rt = 0;
-    var match_trial_count = 0;
-    var match_rt_count = 0;
+    var sum_rating = 0;
+
     for (var i = 0; i < trials.length; i++) {
-      if (trials[i].match == 1) {
-        match_trial_count++;
+      sum_rt =+ trials[i].rt,
+      sum_rating =+ trials[i].responses
       }
-    }
     return {
-      accuracy: +(((match_trial_count / trials.length)*100).toFixed(2))
+      avg_rt: +(sum_rt / trials.length),
+      avg_rating: +(sum_rating / trials.length)
     }
   }
 
-  var feedback_block = {
-    type: "button-response",
-    prompt: function() {
-      var subject_data = getSubjectData();
-      return "<p>You correctly judged the emotional expressions of "+subject_data.accuracy+"% of "+
-      "the faces.</p><p> Press any key to answer a few follow-up questions and complete the "+
-      "experiment.</p>";
-    },
-    choices: ['Continue']
-  };
+  // var feedback_block = {
+  //   type: "button-response",
+  //   prompt: function() {
+  //     var subject_data = getSubjectData();
+  //     return "<p>You correctly judged the emotional expressions of "+subject_data.accuracy+"% of "+
+  //     "the faces.</p><p> Press any key to answer a few follow-up questions and complete the "+
+  //     "experiment.</p>";
+  //   },
+  //   choices: ['Continue']
+  // };
 
 
   var survey_trial2 = {
@@ -230,13 +238,13 @@
 
     /* create experiment timeline array */
     var timeline = [];
-    timeline.push(splash_page);
-    timeline.push(consent_page);
+    // timeline.push(splash_page);
+    // timeline.push(consent_page);
     timeline.push(welcome_block);
     timeline.push(survey_trial1);
     timeline.push(instructions_block);
     timeline.push(test_block);
-    timeline.push(feedback_block);
+    // timeline.push(feedback_block);
     timeline.push(survey_trial2);
     timeline.push(survey_trial3);
 
