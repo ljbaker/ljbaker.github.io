@@ -83,8 +83,6 @@ As always, we begin by visualizing the data.
     library(ggplot2)
     qplot(x = age, y = height, geom = "point") + geom_smooth(method='lm')
 
-<!-- ![](ljbaker.github.io/images/2017-03-25-rm-regression_1.png) -->
-
 We then run a simple linear regression model predicting height from age.
 
     fit1 <- lm(height ~ age)
@@ -365,8 +363,6 @@ dumb luck. Again, massive simplification, but FWER controls for the
 First, let's visualize our mean differences.
 
     qplot(x = age, y = height, color = sex,geom = "point") + geom_smooth(method='lm')
-
-<!-- ![](ljbaker.github.io/images/2017-03-25-rm-regression_2.png) -->
 
 This gives us a pretty clear idea of what our interaction looks like: a
 significant increase in height by age that increases more for males than
