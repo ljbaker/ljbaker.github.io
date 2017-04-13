@@ -4,9 +4,6 @@ title: "Linear Algebra Review"
 date: 2017-03-29
 ---
 
-Linear Algebra Review
-=====================
-
 Linear algebra is the basis for many algorithms in statistics and
 machine learning. I know from personal experience that most advanced
 courses require an understanding of linear algebra, but few (if any)

@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: "Linear Regression from Scratch (Linear Algebra)"
+title: "Linear Regression from Scratch (using Linear Algebra)"
 date: 2017-04-08
 ---
 A few weeks ago I posted a brief tutorial on linear algebra. It's hard
