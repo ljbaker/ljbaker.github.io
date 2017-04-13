@@ -1,6 +1,11 @@
+---
+layout: posts
+title: "Linear Regression from Scratch (Linear Algebra)"
+date: 2017-04-08
+---
 A few weeks ago I posted a brief tutorial on linear algebra. It's hard
 to appreciate how fundamental linear algebra is for statistics and
-machine learning, especally since the most basic algorithms can be
+machine learning, especially since the most basic algorithms can be
 generated using a single line of code in R. My goal here is to
 demonstrate the relationship between linear algebra and the workhorse of
 machine learning: linear regression.
@@ -23,15 +28,15 @@ weather.
 
 Now, it doesn't take a statistical savant to see there exists some
 relationship between temperature and ice cream sales. Moreover, that
-relationshp seems fairly linear: one value increases as the other
+relationship seems fairly linear: one value increases as the other
 increases.
 
 Linear regression is the fitting of a line to a plan of values. There
 are two goals to be had here, depending on your theoretical slant. From
 the viewpoint of a statistician, we can investigate the fit of the line
 to the data to understand the strength of the relationship between two
-or more variables. In the ice cream scenario, a statisticitan would be
-interested in the effect of temeprature on ice cream sales. From a
+or more variables. In the ice cream scenario, a statistician would be
+interested in the effect of temperature on ice cream sales. From a
 machine learning standpoint, we can use the line of best fit to predict
 future sales depending on proposed future temperatures. Say the weather
 calls for a 95 degree scorcher -- what can we estimate our sales to be?
@@ -41,39 +46,39 @@ now so we can talk about it.
 
     summary(lm(sales ~ temp))
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = sales ~ temp)
-    ## 
+    ##
     ## Residuals:
-    ##       1       2       3       4       5       6       7 
-    ##  31.250  26.381 -68.459 106.613  -8.576 -83.503  -3.706 
-    ## 
+    ##       1       2       3       4       5       6       7
+    ##  31.250  26.381 -68.459 106.613  -8.576 -83.503  -3.706
+    ##
     ## Coefficients:
     ##              Estimate Std. Error t value Pr(>|t|)    
     ## (Intercept) -2155.305    246.900  -8.729 0.000327 ***
     ## temp           44.985      3.176  14.164 3.16e-05 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
+    ##
     ## Residual standard error: 70.41 on 5 degrees of freedom
-    ## Multiple R-squared:  0.9757, Adjusted R-squared:  0.9708 
+    ## Multiple R-squared:  0.9757, Adjusted R-squared:  0.9708
     ## F-statistic: 200.6 on 1 and 5 DF,  p-value: 3.158e-05
 
 This output tells us everything we want to know. We find a significant
-effect of temparture on ice cream sales (as conducted by a t-test on the
-coefficients of temparature to decide if the relationship may be due to
+effect of temperature on ice cream sales (as conducted by a t-test on the
+coefficients of temperature to decide if the relationship may be due to
 chance; *t*<sub>6</sub> = 14.164, *p* &lt; .001). Most people call it a
 day with this output. We can also find the significance of the overall
 model, fit with all the variables (including the intercept term;
 *F*<sub>1, 5</sub> = 200.6, *p* &lt; .001). This is usually more
-informative when comparing two models with multiple varibles.
+informative when comparing two models with multiple variables.
 Furthermore, we have a multiple *R*<sup>2</sup> of .976, indicating that
 the relationship between all factors in the model (temp and intercept)
 and our predictor variable (sales) account for 97.57% of the variance.
 Now, adding more factors to a model, even completely arbitrary factors,
 are mathematically certain to explain more variance in a model. The
-adjusted *R*<sup>2</sup> staistic this includes a penalty term to
+adjusted *R*<sup>2</sup> statistic this includes a penalty term to
 account for the complexity of the model (i.e., number of factors
 included). It is entirely possible to get a modest *R*<sup>2</sup> (say
 ~ .25) but an adjusted *R*<sup>2</sup> **below zero** if the model is
@@ -85,7 +90,7 @@ our plane.
 
     coef(lm(sales ~ temp))
 
-    ## (Intercept)        temp 
+    ## (Intercept)        temp
     ## -2155.30523    44.98547
 
 These are exactly like you remember from middle school. The *intercept*
@@ -188,7 +193,7 @@ learned in middle school, *y* = *m**x* + *b*.
     # which we can express in linear algebraic terms as
     y.hat <- X%*%beta.hat
     # and show they are equal
-    X%*%beta.hat == beta.hat[1] + beta.hat[2]*temp 
+    X%*%beta.hat == beta.hat[1] + beta.hat[2]*temp
 
     ##      [,1]
     ## [1,] TRUE
@@ -225,7 +230,7 @@ $MSE = \\frac{\\Sigma(y - \\hat{y})^2}{n-2} = 4957.122$
 
 This is known as the **mean squared error** and captures the amount of
 variance between the predicted and observed values of *y*. However, the
-mean squared error is unstandardized, meaning we have no way to guage
+mean squared error is unstandardized, meaning we have no way to gauge
 whether nearly 5000 points of error is a good thing or a bad thing.
 Fortunately, we can calculate *R*<sup>2</sup> just as simply. As
 mentioned above, *R*<sup>2</sup> is a standardized metric of fit ranging
@@ -236,7 +241,7 @@ $R^2 = 1- \\frac{\\Sigma(y - \\hat{y})^2}{\\Sigma(y - \\bar{y})^2} = 97.57$
 
 We can of course do all of this in a few lines of R.
 
-    sse <- sum((y - y.hat)^2) 
+    sse <- sum((y - y.hat)^2)
     sse
 
     ## [1] 24785.61
@@ -251,7 +256,7 @@ We can of course do all of this in a few lines of R.
 
     ## [1] 0.9756834
 
-Linear Regresion "From A Box"
+Linear Regression "From A Box"
 -----------------------------
 
 R does all of these operations trivially easily, thankfully.
@@ -260,9 +265,9 @@ R does all of these operations trivially easily, thankfully.
     fit1 <- lm(sales ~ temp)
 
     # our betas
-    coef(fit1) 
+    coef(fit1)
 
-    ## (Intercept)        temp 
+    ## (Intercept)        temp
     ## -2155.30523    44.98547
 
     # double checking our calculation of beta
@@ -295,7 +300,7 @@ Complete Demonstration
 ======================
 
 Alright, let's play with some real data! I'm using a dataset available
-by default with R: Motor Trend's road test evlatulations from 1974. We
+by default with R: Motor Trend's road test evaluations from 1974. We
 can flex our linear algebra muscles to see which factors most influence
 fuel consumption. Importantly, this requires us to extend linear
 regression to multiple factors.
@@ -309,14 +314,14 @@ regression to multiple factors.
     ##  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
     ##  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
     ## [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         
-    ## [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood" 
+    ## [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood"
     ## [16] "Lincoln Continental" "Chrysler Imperial"   "Fiat 128"           
     ## [19] "Honda Civic"         "Toyota Corolla"      "Toyota Corona"      
     ## [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         
     ## [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      
     ## [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       
     ## [31] "Maserati Bora"       "Volvo 142E"         
-    ## 
+    ##
     ## [[2]]
     ##  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"
     ## [11] "carb"
@@ -363,9 +368,9 @@ other continuous variables. How about mpg by assorted factors?
 
     # and then we find the predicted values of y given these factors
     y.hat <- X%*%beta.hat
-    # which is the same as expressing 
-    y.hat =  beta.hat[1] + beta.hat[2]*cyl + beta.hat[3]*disp + 
-              beta.hat[4]*hp + beta.hat[5]*drat + beta.hat[6]*wt + 
+    # which is the same as expressing
+    y.hat =  beta.hat[1] + beta.hat[2]*cyl + beta.hat[3]*disp +
+              beta.hat[4]*hp + beta.hat[5]*drat + beta.hat[6]*wt +
               beta.hat[7]*qsec
     y.hat == X%*%beta.hat
 
@@ -428,9 +433,9 @@ other continuous variables. How about mpg by assorted factors?
     #and the same predictions of y
     round(fit2$fitted.values,2) == round(y.hat,2)
 
-    ##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 
-    ## TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE 
-    ##   16   17   18   19   20   21   22   23   24   25   26   27   28   29   30 
-    ## TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE 
-    ##   31   32 
+    ##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
+    ## TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+    ##   16   17   18   19   20   21   22   23   24   25   26   27   28   29   30
+    ## TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+    ##   31   32
     ## TRUE TRUE

@@ -1,3 +1,9 @@
+---
+layout: posts
+title: "Linear Algebra Review"
+date: 2017-03-29
+---
+
 Linear Algebra Review
 =====================
 
@@ -88,13 +94,13 @@ Instead, we have to explicitly coerce the vector into a matrix format.
     ## [2,]    8   10
 
 Broadcasting seems to appear most often in the deep learning tradition
-and often is not stated explicity.
+and often is not stated explicitly.
 
-#### Hadamard Products (Elementwise Multiplication)
+#### Hadamard Products (Element-wise Multiplication)
 
-This is also called elementwise multiplication. Basically, multiply each
+This is also called element-wise multiplication. Basically, multiply each
 cell of a matrix by it's matched cell from an identically shaped matrix.
-It is the default form of multiplcation in R and many other languages,
+It is the default form of multiplication in R and many other languages,
 with the notable exception of MATLAB (which is optimized for matrix
 functions, as its name might suggest).
 
@@ -222,7 +228,7 @@ Matrices must meet the aligned dimension. So, matrix
 
 The properties of matrix algebra dictate that multiplying a square
 matrix, *A*, by an identically shaped matrix of zeros with ones on the
-diagonal, *I*, yeilds *A*. Many authors reserve *I* for the identity
+diagonal, *I*, yields *A*. Many authors reserve *I* for the identity
 matrix by convention, but please note that many **do not**.
 
     ID <- diag(3)
@@ -255,8 +261,8 @@ matrix by convention, but please note that many **do not**.
     ## [2,]    2    5    8
     ## [3,]    3    6    9
 
-    # NOTE: elementwise multiplication by identity matrix gives the diagonal
-    A*ID 
+    # NOTE: element-wise multiplication by identity matrix gives the diagonal
+    A*ID
 
     ##      [,1] [,2] [,3]
     ## [1,]    1    0    0
@@ -271,7 +277,7 @@ matrix by convention, but please note that many **do not**.
 
 Just as we can solve for *x* in the algebraic equation *y* = *m**x* by
 multiplying both sides by the inverse of *m* ($\\frac{1}{m}$) to get
-$x = y\\frac{1}{m}$, we can solve for *x* in the linear algebratic
+$x = y\\frac{1}{m}$, we can solve for *x* in the linear algebraic
 equation *y* = *A**x* by multiplying both sides by the inverse of *A*,
 *A*<sup>−1</sup>. Please note that this is **not** the reciprocal of
 *A*. Rather we're looking for the unique inverse that when multiplied by
@@ -290,7 +296,7 @@ the original will produce an identity matrix.
     ## [1,]   -2  1.5
     ## [2,]    1 -0.5
 
-A square matrix multiplied by its inverse yeilds an identity matrix
+A square matrix multiplied by its inverse yields an identity matrix
 
     A%*%solve(A) #identity
 
@@ -312,7 +318,7 @@ and not all matrices have inverses.
     solve(A) #produces error
 
 The above matrix has no inverse because it is **singular**, meaning that
-multiplication by the matrix contracts space completely accross at least
+multiplication by the matrix contracts space completely across at least
 one dimension. More informally, this means that one or more columns or
 rows are linearly dependent. In the above matrix, every row is the
 previous row + 1, and every column is the preceding column + 3.
@@ -343,7 +349,7 @@ a handy way to calculate if any dimension of a matrix reduces to 0.
     ## [3,]    3    6    9
 
     #the determinant of A
-    det(A) #contracted completly
+    det(A) #contracted completely
 
     ## [1] 0
 
@@ -443,7 +449,7 @@ Eigendecomposition
 ------------------
 
 The eigenvector, *λ*, of a matrix, *A*, is a non-zero vector that
-preserves the direcitonalirty of the matrix when undergoing any form of
+preserves the directionality of the matrix when undergoing any form of
 linear combination. The eigenvalue, *v*, is the scalar that multiplies
 with the eigenvector to produce the original matrix, such that
 
@@ -519,7 +525,7 @@ $SVD(A) = \\sqrt(eigen(A'A))$
 
 Singular values are broken into three parts: the square left-singular
 values, *U*; the square right-singular values, *V*; and the singular
-values, *D*, which are identity but not necessarialy square. Suppose
+values, *D*, which are identity but not necessarily square. Suppose
 that *A* is an *m* × *n* matrix. Then *U* is defined to be an *m* × *m*
 matrix, *D* to be an m× n matrix, and *V* to be an *n* × *n* matrix,
 such that
@@ -533,7 +539,7 @@ such that
     ## [1,] 0.5103131 -0.3947435 0.8217034 -0.8018150
     ## [2,] 0.3997771 -0.3505536 0.4503121 -0.2334917
 
-    D <- svd(A)$d 
+    D <- svd(A)$d
     #the singular values, D, of A...
     D
 
@@ -545,7 +551,7 @@ such that
     ## [1] TRUE TRUE
 
     #left-singular values, U
-    U <- svd(A)$u 
+    U <- svd(A)$u
     V
 
     ##            [,1]         [,2]       [,3]
@@ -563,7 +569,7 @@ such that
     #...in theory, although we get a weird sign error here
 
     # and the right singular values
-    V <- svd(A)$v 
+    V <- svd(A)$v
     V
 
     ##            [,1]        [,2]
@@ -688,6 +694,6 @@ element of the diagonal matrix, *D*, and then taking its transpose.
     ## [2,] TRUE TRUE TRUE TRUE
 
 And that's pretty much all you need to know enough linear algebra to do
-some damage in the world of mulvitariate inverence. I'll post a
+some damage in the world of multivariate inference. I'll post a
 follow-up soon that demonstrates how to use these basics for Principal
 Components Analysis.
