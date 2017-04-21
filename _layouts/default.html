@@ -4,6 +4,7 @@
 			<title>{{ page.title }}</title>
 			<!-- link to main stylesheet -->
 			<link rel="stylesheet" type="text/css" href="/css/main.css">
+
 		</head>
 		<body>
 			<nav class = "horizontal-menu">
@@ -11,14 +12,22 @@
 	        		<li><a href="/">Home</a></li>
 							<li><a href="/blog">Blog</a></li>
 							<li><a href="/cv">CV</a></li>
-							<li><a href="/projects">Projects</a>
-								<ul class = "dropdown-menu" data-role="dropdown">
+							<li class = "dropdown">
+								<a href="/projects" class="dropbtn">Projects</a>
+						    <div class="dropdown-content">
+						      <a href="/projects/attention">Attention &amp; Memory</a>
+						      <a href="/projects/data_science">Data Science</a>
+						      <a href="/projects/event_perception">Event Perception</a>
+									<a href="/projects/social_attention">Social Attention</a>
+						    </div>
+						  </li>
+							<!-- <li><a href="/projects">Projects</a>
 									<li><a href="/projects/attention">Attention &amp; Memory</a></li>
       						<li><a href="/projects/data_science">Data Science</a></li>
 									<li><a href="/projects/event_perception">Event Perception</a></li>
 									<li><a href="/projects/social_attention">Social Attention</a></li>
 								</ul>
-							</li>
+							</li> -->
 	    		</ul>
 			</nav>
 			<div class="container">
