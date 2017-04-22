@@ -68,9 +68,9 @@ Variance (ANOVA). ANOVA is a special case of regression for categorical
 data (e.g., conditions or groups). It behaves identically to regression
 when using continuous data. *NOTE*: Many ANOVA functions in R or other
 statistical software output the results of ANOVAs as
-*F*<sub>*d**f*1, *d**f*2</sub> scores, whereas many regression functions
-give output as *t*<sub>*d**f*</sub>. In those cases where *d**f*1 = 1,
-*F*<sub>*d**f*1 = 1, *d**f*2</sub> = *t*<sub>*d**f*2</sub><sup>2</sup>.
+*F*<sub>df1,df2</sub> scores, whereas many regression functions
+give output as *t*<sub>df</sub>. In those cases where df1 = 1,
+*F*<sub>df1 = 1, df2 = x</sub> = (*t*<sub>df = x</sub>)<sup>2</sup>.
 
 You can *totally* do repeated measures ANOVAS using the aov package, but
 things get a little complicated when trying to account for covariates.
@@ -103,17 +103,15 @@ We then run a simple linear regression model predicting height from age.
     ## (Intercept)  38.6400     7.1189   5.428 1.62e-05 ***
     ## age           1.5800     0.5892   2.682   0.0133 *  
     ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ##
+    ## Signif. codes:  0 '**' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ##*
     ## Residual standard error: 4.166 on 23 degrees of freedom
     ## Multiple R-squared:  0.2382, Adjusted R-squared:  0.2051
     ## F-statistic: 7.192 on 1 and 23 DF,  p-value: 0.01332
 
-We see that age has a significant effect on height at *p* = .013. We
-have an *R*<sup>2</sup> of .238, meaning this model accounts for about
-24% of the variance seen in the data.
+We see that age has a significant effect on height at *p* = .013. We have an *R*<sup>2</sup> of .238, meaning this model accounts for about 24% of the variance seen in the data.
 
-To run an ANOVA we simple run
+To run an ANOVA we simply run
 
     anova(fit1)
 
@@ -132,7 +130,7 @@ calculate the effect size, *η*<sup>2</sup>, as a ratio of the effect
 explained by the variance measured. In this case, we divide the sum of
 squares of age by the sum of squares total:
 
-$\\frac{SS\_{age}}{SS\_{age}+SS\_{error}} = \\frac{124.8}{124.8+399.2} = .238$
+$$\frac{SS_{age}}{SS_{age}+SS_{error}} = \frac{124.8}{124.8+399.2} = .238$$
 
 We can interpret this as saying that 23.8% of our effect was determined
 by age, and the remaining was accounted for by unknown variance.
