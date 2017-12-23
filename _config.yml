@@ -9,3 +9,5 @@ permalink: /blog/:year/:month/:day/:title
 defaults:
   -
       layout:     "default"
+
+theme: jekyll-theme-time-machine
