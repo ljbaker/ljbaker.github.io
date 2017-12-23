@@ -3,9 +3,17 @@ layout: default
 title: "About This"
 ---
 
-I'm a cognitive science researcher working for the Cognitive Data Science (CODAS) Lab at Rutgers University - Newark. Our research broadly covers computational analysis of human behavior, including probabilistic models of the visual system, artificially intelligent teaching agents for educational applications, modeling of learning curves in early childhood, and application of computer vision towards understanding group dynamics.
+I'm a data scientist working at <a href="https://www.pymetrics.com/">pymetrics</a>. I specializing in machine learning algorithms for human behavior. At pymetrics, these AI applications lead to two important (and fascinating) considerations. First, algorithms dealing with human behavior will often be *biased* against some demographic, be it racial, gender, socio-economic or regional, and that the future of AI lies in estimating and curbing algorithmic bias. Second, many significant contributors to AI rely on blackbox algorithms, but decisions that impact human lives require transparency to meet any number of legal and ethical standards. My work at pymetrics revolves around these issues of transparency and equality while still creating algorithms that accurately predict human behavior. It's crazy fun.
 
-I examine human behavior in four primary ways:
+# Machine Learning Research at pymetrics
+
+<stuff goes here>
+
+# Academic Research
+
+I received a PhD in Psychology from the Seeing and Thinking Lab at Vanderbilt University and worked as a post-doctoral researcher in the Cognitive Data Science (CODAS) Lab at Rutgers University - Newark. My research has evolved from investigating the cognitive mechanisms governing attention and memory in everyday events to broader algorithmic modeling of cross-cultural human cognition. That being said, I'll nerd out over just about anything.
+
+My research broadly covers computational analysis of human behavior, including probabilistic models of the visual system, artificially intelligent teaching agents for educational applications, modeling of learning curves in early childhood, and application of computer vision towards understanding group dynamics. This can be summarized in three primary subjects:
 
 ## Attention, Memory and Awareness
 
@@ -24,7 +32,3 @@ Human history is filled with people failing to understand other people. However,
 With a glance you can understand so much of the world around you. The brain recognizes collections of features (e.g., *red*, *smooth*, *shiny*) as objects (*an apple*). The brain also automatically encodes collections of objects in space (e.g., *lawn chairs*, *sand*, *plastic buckets*, *sunshine*) as a single scene (*a beach*). Likewise, the brain encodes whole moments of time (e.g., *pouring coffee*, *grabbing sugar*, *pouring surgar*, *grabbing milk*, *pouring milk*, *stirring*) as a single event (*making coffee*). I spent a lot of time trying to understand how we understand events.
 
 Research in event perception has extremely useful scientific and real-world applications. Within basic science, understanding how the brain processes events reveals a great deal about how systems of attention, memory and decision-making leverage our limited mental capacities to focus on important items while ignoring the banal. In application, understanding how the brain parses events can lead to innovations in condensing information. Think about it: automatic video encoding that extracts only the moments most important for understanding the event, or software that leverages how human beings anticipate events to predict short-term human behavior. All these things are very possible within our lifetime.
-
-## Data Science and Statistical Analysis
-
-I really enjoy digging through data. I have a doctoral certificate in quantitative methods and postdoctoral training in machine learning, which I use to find nuanced trends in human behavior using massive collections of data. I will occasionally post <a href="https://github.com/ljbaker/ljbaker.github.io/tree/master/CogSci17">data analysis from completed projects</a> and welcome feedback on more efficient or interesting methods.
