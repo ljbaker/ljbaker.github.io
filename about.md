@@ -3,7 +3,7 @@ layout: default
 title: "About This"
 ---
 
-I'm a data scientist working at <a href="https://www.pymetrics.com/">pymetrics</a>. I specializing in machine learning algorithms for human behavior. At pymetrics, these AI applications lead to two important (and fascinating) considerations. First, algorithms dealing with human behavior will often be *biased* against some demographic, be it racial, gender, socio-economic or regional, and that the future of AI lies in estimating and curbing algorithmic bias. Second, many significant contributors to AI rely on blackbox algorithms, but decisions that impact human lives require transparency to meet any number of legal and ethical standards. My work at pymetrics revolves around these issues of transparency and equality while still creating algorithms that accurately predict human behavior. It's crazy fun.
+ I specialize in machine learning algorithms for human behavior. At <a href="https://www.pymetrics.com/">pymetrics</a>, these AI applications lead to two important (and fascinating) considerations. First, algorithms dealing with human behavior will often be *biased* against some demographic, be it racial, gender, socio-economic or regional, and the future of AI lies in estimating and curbing this algorithmic bias. Second, many significant contributors to AI rely on blackbox algorithms, but decisions that impact human lives require transparency to meet any number of legal and ethical standards. My work at pymetrics revolves around these issues of transparency and equality while still creating algorithms that accurately predict human behavior. It's crazy fun.
 
 # Machine Learning Research at pymetrics
 
