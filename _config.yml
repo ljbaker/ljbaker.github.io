@@ -10,4 +10,4 @@ defaults:
   -
       layout:     "default"
 
-theme: jekyll-theme-time-machine
+theme: minima
